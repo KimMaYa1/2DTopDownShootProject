@@ -8,7 +8,7 @@ public class TopDownCharacterController : MonoBehaviour
 {
     public event Action<Vector2> OnMoveEvent;
     public event Action<Vector2> OnLookEvent;
-    public event Action OnAttackEvent;
+    public event Action <AttackSo>OnAttackEvent;
     
     private float _timeSinceLastAttack = float.MaxValue;
     protected bool IsAttacking { get; set; }
@@ -37,7 +37,7 @@ public class TopDownCharacterController : MonoBehaviour
         else if(_timeSinceLastAttack > Stats.CurrentStates.attackSo.delay && IsAttacking)
         {
             _timeSinceLastAttack = 0;
-            CallAttackEvent();
+            CallAttackEvent(Stats.CurrentStates.attackSo);
         }
     }
 
@@ -51,8 +51,8 @@ public class TopDownCharacterController : MonoBehaviour
         OnLookEvent?.Invoke(direction);
     }
 
-    public void CallAttackEvent()
+    public void CallAttackEvent(AttackSo attackSo)
     {
-        OnAttackEvent?.Invoke();
+        OnAttackEvent?.Invoke(attackSo);
     }
 }
